@@ -5,15 +5,18 @@ import org.junit.Test;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import static org.junit.Assert.assertTrue;
 
 public class RegExGeneratorTest {
 
+    private static Integer MAX_LENGTH = 30;
+
     private boolean validate(String regEx, int numberOfResults) {
-        RegExGenerator generator = new RegExGenerator();
+        RegExGenerator generator = new RegExGenerator(MAX_LENGTH);
         // TODO: Uncomment parameters
-        List<String> results = generator.generate(/*regEx, numberOfResults*/);
+        List<String> results = generator.generate(regEx, numberOfResults);
         // force matching the beginning and the end of the strings
         Pattern pattern = Pattern.compile("^" + regEx + "$");
         return results
@@ -27,7 +30,7 @@ public class RegExGeneratorTest {
     }
 
     //TODO: Uncomment these tests
-    /*
+
     @Test
     public void testAnyCharacter() {
         assertTrue(validate(".", 1));
@@ -47,7 +50,7 @@ public class RegExGeneratorTest {
     public void testLiteralDotCharacter() {
         assertTrue(validate("\\@..", 1));
     }
-
+    /*
     @Test
     public void testZeroOrOneCharacter() {
         assertTrue(validate("\\@.h?", 1));
@@ -63,5 +66,9 @@ public class RegExGeneratorTest {
         assertTrue(validate("[abc]+", 1));
     }
     */
-    // TODO: Add more tests!!!
+
+    @Test(expected = PatternSyntaxException.class)
+    public void testPatternSyntaxException() {
+        validate("[abc+", 1);
+    }
 }
