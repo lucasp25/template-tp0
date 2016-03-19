@@ -11,7 +11,7 @@ public class RegExIterator implements Iterator<String> {
 	public RegExIterator(String regEx) {
 		this.regEx = regEx;
 		this.index = 0;
-		this.previousChar = "^";
+		this.previousChar = Constant.STARTS_REGEX_MARK;
 	}
 
 	@Override

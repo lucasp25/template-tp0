@@ -18,18 +18,14 @@ public class ResultString {
 	public ResultString(String reGex) {
 		super();
 		this.reGex = reGex;
-		this.previousChar = "$";
-		this.previousCharGenerated = "$";
+		this.previousChar = Constant.END_REGEX_MARK;
+		this.previousCharGenerated = Constant.END_REGEX_MARK;
 		this.iterator = new RegExIterator(reGex);
 		this.matchResult = "";
 	}
 
 	public String getReGex() {
 		return reGex;
-	}
-
-	public void setReGex(String reGex) {
-		this.reGex = reGex;
 	}
 
 	public int getIndexLastChar() {

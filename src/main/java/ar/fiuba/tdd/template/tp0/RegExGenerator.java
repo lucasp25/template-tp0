@@ -28,7 +28,7 @@ public class RegExGenerator {
 			throws PatternSyntaxException {
 
 		int accountant = 0;
-		String fullRegEx = "^" + regEx + "$";
+		String fullRegEx = Constant.STARTS_REGEX_MARK + regEx + Constant.END_REGEX_MARK;
 		List<String> generated = new ArrayList<String>();
 
 		validateRegEx(fullRegEx);
