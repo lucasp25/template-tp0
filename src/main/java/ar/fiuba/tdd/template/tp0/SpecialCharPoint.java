@@ -4,15 +4,15 @@ public class SpecialCharPoint extends GeneratedRandomString {
 
 	@Override
 	public ResultString generatedParcialString(ResultString result,
-			RandomCustom randomCustom) {
-		result.setLastRandomString(this.getStringSpecialPoint(1,randomCustom));
+																						 RandomCustom randomCustom) {
+		result.setLastRandomString(this.getStringSpecialPoint(1, randomCustom));
 		result.concantLastRandomStringToMatchResult();
 		result.setPreviousCharGenerated(result.getLastRandomString());
 		return null;
 	}
-	
-	 private String getStringSpecialPoint(int maxLength,RandomCustom randomCustom){
-	    	return randomCustom.getAlphanumericString(maxLength);
-	    }
+
+	private String getStringSpecialPoint(int maxLength, RandomCustom randomCustom) {
+		return randomCustom.getAlphanumericString(maxLength);
+	}
 
 }

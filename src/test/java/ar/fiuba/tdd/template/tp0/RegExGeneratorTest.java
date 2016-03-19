@@ -11,25 +11,23 @@ import static org.junit.Assert.assertTrue;
 
 public class RegExGeneratorTest {
 
-    private static Integer MAX_LENGTH = 60;
+    private static Integer MAX_LENGTH = 100;
 
     private boolean validate(String regEx, int numberOfResults) {
         RegExGenerator generator = new RegExGenerator(MAX_LENGTH);
-        // TODO: Uncomment parameters
+
         List<String> results = generator.generate(regEx, numberOfResults);
         // force matching the beginning and the end of the strings
         Pattern pattern = Pattern.compile("^" + regEx + "$");
         return results
                 .stream()
                 .reduce(true,
-                    (acc, item) -> {
+                        (acc, item) -> {
                         Matcher matcher = pattern.matcher(item);
                         return acc && matcher.find();
                     },
-                    (item1, item2) -> item1 && item2);
+                        (item1, item2) -> item1 && item2);
     }
-
-    //TODO: Uncomment these tests
 
     @Test
     public void testAnyCharacter() {
@@ -66,8 +64,44 @@ public class RegExGeneratorTest {
         assertTrue(validate("[abc]+", 1));
     }
 
+    @Test
+    public void testCharacterSetWithQuantifiersAndLiterals() {
+        assertTrue(validate(".a[.*]+.e", 10));
+    }
+
+    @Test
+    public void testCharacterPointAndAsterik() {
+        assertTrue(validate(".*.*.*.*.*", 10));
+    }
+
+    @Test
+    public void testCharacterPointAndAsterikAnPlus() {
+        assertTrue(validate(".*.*.*.*.*+", 5));
+    }
+
+    @Test
+    public void testCharacterLiteralsPlus() {
+        assertTrue(validate("\\+++", 5));
+    }
+
+    @Test
+    public void testCharacterLiteralsAndPlus() {
+        assertTrue(validate("ab+c", 5));
+    }
+
+    @Test
+    public void testExamplePdfTp0() {
+        assertTrue(validate("..+[ab]*d?c", 5));
+    }
+
     @Test(expected = PatternSyntaxException.class)
     public void testPatternSyntaxException() {
         validate("[abc+", 1);
     }
+
+    @Test(expected = PatternSyntaxException.class)
+    public void testPattersSyntaxExceptionOnlyQuantifiers() {
+        assertTrue(validate("+*?", 8));
+    }
+    
 }

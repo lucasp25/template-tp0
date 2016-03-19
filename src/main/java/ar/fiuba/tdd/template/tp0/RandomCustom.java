@@ -7,39 +7,31 @@ import java.util.Random;
  */
 public class RandomCustom {
 
-    Random random = null;
+	Random random = null;
 
-    public RandomCustom() {
-        this.random = new Random();
-    }
+	public RandomCustom() {
+		this.random = new Random();
+	}
 
-    public String getAlphanumericString(int length) {
-        String alphanumeric = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        return getStringRandom(alphanumeric, length);
-    }
-    
-    public String getAlphanumericStringByValues(String values,int length){
-    	return getStringRandom(values, length);
-    }
+	public String getAlphanumericString(int length) {
+		return getStringRandom(Constant.ALPHANUMERIC_STRING, length);
+	}
+
+	public String getAlphanumericStringByValues(String values, int length) {
+		return getStringRandom(values, length);
+	}
+
+	public int getRandomIntegerByMinAndMax(int min, int max) {
+		return random.nextInt((max - min) + 1) + min;
+	}
 
 	private String getStringRandom(String values, int length) {
 		int index = 0;
-    	StringBuffer out = new StringBuffer ("");
-    	while(index < length){    	
-    		out.append(Character.toString(values.charAt(getRandomInteger(values.length()))));
-    		index++;
-    	}
+		StringBuffer out = new StringBuffer("");
+		while (index < length) {
+			out.append(Character.toString(values.charAt(getRandomIntegerByMinAndMax(0, values.length() - 1))));
+			index++;
+		}
 		return out.toString();
 	}
-    
-    public int getRandomIntegerByMinAndMax(int minimum, int maximum) {
-    	int number = maximum - minimum + 1;
-    	int index = random.nextInt() % number;
-    	int randomNum =  minimum + index;
-    	return randomNum;
-    }
-    
-    public int getRandomInteger(int length){
-    	return (int) Math.round(Math.random() * (length-1));
-    }
 }

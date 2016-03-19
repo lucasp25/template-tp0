@@ -37,19 +37,19 @@ public class RegExGenerator {
 			ResultString resultString = new ResultString(regEx);
 			while (resultString.getIterator().hasNext()) {
 				RandomCustom randomCustom = new RandomCustom();
-				String alctualChar = resultString.getIterator().next();
+				String actualChar = resultString.getIterator().next();
 				if (!resultString.getIterator().getPreviousChar()
 						.equals(Constant.BAR)
-						&& specialsCharacters.get(alctualChar) != null) {
-					specialsCharacters.get(alctualChar).generatedParcialString(
+						&& specialsCharacters.get(actualChar) != null) {
+					specialsCharacters.get(actualChar).generatedParcialString(
 							resultString, randomCustom);
-				} else if (!alctualChar.equals(Constant.BAR)
-						|| (alctualChar.equals(Constant.BAR) && resultString
-								.getIterator().getPreviousChar()
-								.equals(Constant.BAR))) {
-					resultString.setLastRandomString(alctualChar);
+				} else if (!actualChar.equals(Constant.BAR)
+						|| (actualChar.equals(Constant.BAR) && resultString
+						.getIterator().getPreviousChar()
+						.equals(Constant.BAR))) {
+					resultString.setLastRandomString(actualChar);
 					resultString.concantLastRandomStringToMatchResult();
-					resultString.setPreviousCharGenerated(alctualChar);
+					resultString.setPreviousCharGenerated(actualChar);
 				}
 			}
 			if (resultString.getMatchResult().length() < this.maxLength) {

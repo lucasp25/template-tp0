@@ -3,12 +3,12 @@ package ar.fiuba.tdd.template.tp0;
 import java.util.Iterator;
 
 public class RegExIterator implements Iterator<String> {
-	
+
 	private String regEx;
 	private int index;
 	private String previousChar;
-	
-	public RegExIterator(String regEx){
+
+	public RegExIterator(String regEx) {
 		this.regEx = regEx;
 		this.index = 0;
 		this.previousChar = "^";
@@ -16,7 +16,7 @@ public class RegExIterator implements Iterator<String> {
 
 	@Override
 	public boolean hasNext() {
-		if(index < regEx.length()) {
+		if (index < regEx.length()) {
 			return true;
 		}
 		return false;
@@ -24,7 +24,7 @@ public class RegExIterator implements Iterator<String> {
 
 	@Override
 	public String next() {
-		if(index > 0) this.previousChar = String.valueOf(regEx.charAt(index - 1));
+		if (index > 0) this.previousChar = String.valueOf(regEx.charAt(index - 1));
 		return String.valueOf(regEx.charAt(index++));
 	}
 
@@ -37,12 +37,12 @@ public class RegExIterator implements Iterator<String> {
 	public void setPositionString(int index) {
 		this.index = index;
 	}
-	
-	public int getPosition(){
+
+	public int getPosition() {
 		return this.index;
 	}
-	
-	public String getPreviousChar(){
+
+	public String getPreviousChar() {
 		return this.previousChar;
 	}
 
