@@ -70,12 +70,12 @@ public class RegExGeneratorTest {
     }
 
     @Test
-    public void testCharacterPointAndAsterik() {
+    public void testCharacterPointAndAsterisk() {
         assertTrue(validate(".*.*.*.*.*", 10));
     }
 
     @Test
-    public void testCharacterPointAndAsterikAnPlus() {
+    public void testCharacterPointAndAsteriskAndPlus() {
         assertTrue(validate(".*.*.*.*.*+", 5));
     }
 
@@ -94,6 +94,26 @@ public class RegExGeneratorTest {
         assertTrue(validate("..+[ab]*d?c", 5));
     }
 
+    @Test
+    public void testDoubleCharacterSet() {
+        assertTrue(validate("[cdf123jui][hg@5657klj]", 6));
+    }
+
+    @Test
+    public void testTripleCharacterSet() {
+        assertTrue(validate("[0123456789.][cdf123jui][hg@5657klj]", 5));
+    }
+
+    @Test
+    public void testCharacterSetLiteralsQualifiers() {
+        assertTrue(validate("[.*?+.]", 2));
+    }
+
+    @Test
+    public void testCharacterQualifiers() {
+        assertTrue(validate(".*.?.+", 5));
+    }
+
     @Test(expected = PatternSyntaxException.class)
     public void testPatternSyntaxException() {
         validate("[abc+", 1);
@@ -103,5 +123,10 @@ public class RegExGeneratorTest {
     public void testPattersSyntaxExceptionOnlyQuantifiers() {
         assertTrue(validate("+*?", 8));
     }
-    
+
+    @Test(expected = PatternSyntaxException.class)
+    public void testDoubleCharacterSetSyntaxException() {
+        assertTrue(validate("[cdf123jui][hg@5657klj", 6));
+    }
+
 }

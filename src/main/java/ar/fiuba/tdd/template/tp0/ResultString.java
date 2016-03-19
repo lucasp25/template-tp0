@@ -91,9 +91,4 @@ public class ResultString {
 	public RegExIterator getIterator() {
 		return iterator;
 	}
-
-	public void setIterator(RegExIterator iterator) {
-		this.iterator = iterator;
-	}
-
 }

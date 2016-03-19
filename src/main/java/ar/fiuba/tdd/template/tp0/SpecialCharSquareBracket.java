@@ -3,16 +3,25 @@ package ar.fiuba.tdd.template.tp0;
 public class SpecialCharSquareBracket extends GeneratedRandomString {
 
   @Override
-  public ResultString generatedParcialString(ResultString result,
+  public void generatedPartialString(ResultString result,
                                              RandomCustom randomCustom) {
+    int startPosition = result.getIterator().getPosition();
 
-    result.setIndexLastChar(result.getReGex().indexOf(Constant.END_SQUARE_BRACKET));
-    result.setLastRandomString(randomCustom.getAlphanumericStringByValues(result.getReGex().substring(result.getIterator().getPosition(), result.getIndexLastChar() + 1).replace("[", "").replace("]", ""), 1));
+    this.findEndSquareBracket(result);
+
+    int endPosition = result.getIterator().getPosition() - 1;
+    result.setIndexLastChar(endPosition);
+    result.setLastRandomString(randomCustom.getAlphanumericStringByValues(result.getReGex().substring(startPosition, endPosition), 1));
     result.concantLastRandomStringToMatchResult();
     result.setPreviousCharGenerated(result.getLastRandomString());
     result.getIterator().setPositionString((result.getIndexLastChar() + 1));
+  }
 
-    return result;
+  private void findEndSquareBracket(ResultString result) {
+    String actualChar = "";
+    while(result.getIterator().hasNext() && !actualChar.equals(Constant.END_SQUARE_BRACKET)) {
+      actualChar = result.getIterator().next();
+    }
   }
 
 }

@@ -3,8 +3,8 @@ package ar.fiuba.tdd.template.tp0;
 public class SpecialCharacterAsterisk extends GeneratedRandomString {
 
 	@Override
-	public ResultString generatedParcialString(ResultString result,
-																						 RandomCustom randomCustom) {
+	public void generatedPartialString(ResultString result,
+											   RandomCustom randomCustom) {
 
 		int randomLength = randomCustom.getRandomIntegerByMinAndMax(0, Constant.MAX_LENGTH_RANDOM_ASTERISK);
 
@@ -15,7 +15,6 @@ public class SpecialCharacterAsterisk extends GeneratedRandomString {
 			result.concantLastRandomStringToMatchResult();
 			result.setPreviousCharGenerated(result.getLastRandomString());
 		}
-		return null;
 	}
 
 

@@ -41,7 +41,7 @@ public class RegExGenerator {
 				if (!resultString.getIterator().getPreviousChar()
 						.equals(Constant.BAR)
 						&& specialsCharacters.get(actualChar) != null) {
-					specialsCharacters.get(actualChar).generatedParcialString(
+					specialsCharacters.get(actualChar).generatedPartialString(
 							resultString, randomCustom);
 				} else if (!actualChar.equals(Constant.BAR)
 						|| (actualChar.equals(Constant.BAR) && resultString

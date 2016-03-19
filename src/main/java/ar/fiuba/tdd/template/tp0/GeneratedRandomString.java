@@ -2,7 +2,7 @@ package ar.fiuba.tdd.template.tp0;
 
 public abstract class GeneratedRandomString {
 
-	public abstract ResultString generatedParcialString(ResultString result, RandomCustom randomCustom);
+	public abstract void generatedPartialString(ResultString result, RandomCustom randomCustom);
 
 	protected String buildString(String previousChar, int randomLength) {
 		int index = 0;
