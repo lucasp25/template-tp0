@@ -5,56 +5,65 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 public class RegExGenerator {
-    // TODO: Uncomment this field
-    private int maxLength;
-    private Map<String, String> specialsCharacters = null;
+	// TODO: Uncomment this field
+	private int maxLength;
+	private Map<String, GeneratedRandomString> specialsCharacters = null;
 
-    public RegExGenerator(int maxLength) {
-        this.maxLength = maxLength;
-        specialsCharacters = new HashMap<String,String>();
-        specialsCharacters.put(".",".");
-        specialsCharacters.put("[","[");
-        specialsCharacters.put("]","]");
-        specialsCharacters.put("?","?");
-        specialsCharacters.put(Constant.ASTERISK,"*");
-        specialsCharacters.put(Constant.PLUS,"+");
-        specialsCharacters.put(Constant.BAR,"\\");
+	public RegExGenerator(int maxLength) {
+		this.maxLength = maxLength;
+		specialsCharacters = new HashMap<String, GeneratedRandomString>();
+		specialsCharacters.put(Constant.POINT, new SpecialCharPoint());
+		specialsCharacters.put(Constant.START_SQUARE_BRACKET,
+				new SpecialCharSquareBracket());
+		specialsCharacters.put(Constant.QUESTION_MARK,
+				new SpecialCharQuestionMark());
+		specialsCharacters.put(Constant.ASTERISK,
+				new SpecialCharacterAsterisk());
+		specialsCharacters.put(Constant.PLUS, new SpecialCharacterPlus());
 
-    }
+	}
 
-    // TODO: Uncomment parameters
-    public List<String> generate(String regEx, int numberOfResults) throws PatternSyntaxException {
+	// TODO: Uncomment parameters
+	public List<String> generate(String regEx, int numberOfResults)
+			throws PatternSyntaxException {
 
-        int accountant = 1;
-        String fullRegEx = "^" + regEx + "$";
-        String stringMatch ="";
-        RandomCustom random = new RandomCustom();
-        List<String> generated = new ArrayList<String>();
+		int accountant = 0;
+		String fullRegEx = "^" + regEx + "$";
+		List<String> generated = new ArrayList<String>();
 
-        validateRegEx(fullRegEx);
+		validateRegEx(fullRegEx);
 
-        String[] characters  = regEx.split("");
-        while (accountant < numberOfResults) {
-            accountant++;
-            String previousChar = "$";
-            for (String character : characters) {
-                if(!previousChar.equals(Constant.BAR) && specialsCharacters.get(character) != null){
-                    //aca van las estrategias de cada caracter especial.
-                    if(character.equals(".")) {
-                        stringMatch = stringMatch + random.getAlphanumericCharacter(1);
-                    }
-                }else{
-                    stringMatch = stringMatch + character;
-                }
-                previousChar = character;
-            }
-            generated.add(stringMatch);
-        }
+		while (accountant < numberOfResults) {
+			ResultString resultString = new ResultString(regEx);
+			while (resultString.getIterator().hasNext()) {
+				RandomCustom randomCustom = new RandomCustom();
+				String alctualChar = resultString.getIterator().next();
+				if (!resultString.getIterator().getPreviousChar()
+						.equals(Constant.BAR)
+						&& specialsCharacters.get(alctualChar) != null) {
+					specialsCharacters.get(alctualChar).generatedParcialString(
+							resultString, randomCustom);
+				} else if (!alctualChar.equals(Constant.BAR)
+						|| (alctualChar.equals(Constant.BAR) && resultString
+								.getIterator().getPreviousChar()
+								.equals(Constant.BAR))) {
+					resultString.setLastRandomString(alctualChar);
+					resultString.concantLastRandomStringToMatchResult();
+					resultString.setPreviousCharGenerated(alctualChar);
+				}
+			}
+			if (resultString.getMatchResult().length() < this.maxLength) {
+				System.out.println(resultString.getMatchResult());
+				generated.add(resultString.getMatchResult());
+				accountant++;
+			}
+		}
 
-        return generated;
-    }
+		return generated;
+	}
 
-    private void validateRegEx(String regEx) throws PatternSyntaxException{
-        Pattern.compile(regEx);
-    }
+	private void validateRegEx(String regEx) throws PatternSyntaxException {
+		Pattern.compile(regEx);
+	}
+
 }

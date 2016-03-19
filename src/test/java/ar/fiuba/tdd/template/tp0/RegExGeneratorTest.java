@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 
 public class RegExGeneratorTest {
 
-    private static Integer MAX_LENGTH = 30;
+    private static Integer MAX_LENGTH = 60;
 
     private boolean validate(String regEx, int numberOfResults) {
         RegExGenerator generator = new RegExGenerator(MAX_LENGTH);
@@ -50,7 +50,7 @@ public class RegExGeneratorTest {
     public void testLiteralDotCharacter() {
         assertTrue(validate("\\@..", 1));
     }
-    /*
+
     @Test
     public void testZeroOrOneCharacter() {
         assertTrue(validate("\\@.h?", 1));
@@ -65,7 +65,6 @@ public class RegExGeneratorTest {
     public void testCharacterSetWithQuantifiers() {
         assertTrue(validate("[abc]+", 1));
     }
-    */
 
     @Test(expected = PatternSyntaxException.class)
     public void testPatternSyntaxException() {
