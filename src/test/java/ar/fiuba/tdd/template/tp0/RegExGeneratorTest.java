@@ -114,6 +114,11 @@ public class RegExGeneratorTest {
         assertTrue(validate(".*.?.+", 5));
     }
 
+    @Test
+    public void testCharacterLiteralSquareBracket() {
+        assertTrue(validate(".*\\]abc\\]", 2));
+    }
+
     @Test(expected = PatternSyntaxException.class)
     public void testPatternSyntaxException() {
         validate("[abc+", 1);
